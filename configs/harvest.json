@@ -1,0 +1,30 @@
+{
+  "model_name": "HARVEST",
+  "seed": 20260830,
+  "curation": {
+    "embedding_backbone": "DINOv3 ViT-S+/16",
+    "faiss_clusters": 200,
+    "clinician_decisions": ["KEEP", "EXCLUDE", "UNCERTAIN"],
+    "kept_clusters": 65,
+    "trim_farthest_fraction_per_cluster": 0.20,
+    "quota_rule": "square_root_of_eligible_cluster_size",
+    "sampling": "uniform_without_replacement_within_cluster",
+    "category_targets": {"egj": 50000, "other_esophagus": 25000, "stomach": 25000}
+  },
+  "ssl": {
+    "vitl_ssl224": {"architecture": "DINOv3 ViT-L/16", "image_size": 224, "local_crop_size": 96, "batch_size": 128, "updates": 12000},
+    "vitl_ssl384": {"architecture": "DINOv3 ViT-L/16", "image_size": 384, "local_crop_size": 96, "batch_size": 128, "updates": 12000}
+  },
+  "fine_tuning": {
+    "vitl_ssl224_twoview": {"ssl": "vitl_ssl224", "image_size": 224, "frozen_probe_batch_size": 32, "partial_batch_size": 64, "partial_views": 2, "partial_batch_composition": {"positive": 16, "random_negative": 48}},
+    "vitl_ssl384_oneview": {"ssl": "vitl_ssl384", "image_size": 384, "frozen_probe_batch_size": 32, "partial_batch_size": 32, "partial_views": 1}
+  },
+  "ensemble": {
+    "folds_per_component": 5,
+    "tta": "mean_logits_over_0_90_180_270_degree_rotations",
+    "member_alignment": "validation_mean_std_ddof0",
+    "within_component": "middle_three_mean",
+    "component_weights": {"vitl_ssl224_twoview": 0.5, "vitl_ssl384_oneview": 0.5},
+    "output": "single_sigmoid_after_logit_ensemble"
+  }
+}

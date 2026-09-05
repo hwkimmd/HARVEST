@@ -1,0 +1,5 @@
+image_id,relative_path,label,center
+synthetic_0001,center_1/negative/example_0001.png,0,center_1
+synthetic_0002,center_1/positive/example_0002.png,1,center_1
+synthetic_0003,center_2/negative/example_0003.png,0,center_2
+synthetic_0004,center_2/positive/example_0004.png,1,center_2
