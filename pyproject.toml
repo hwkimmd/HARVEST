@@ -10,8 +10,6 @@ description = "MIT-licensed HARVEST implementation for the RARE26 challenge"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
-[project.urls]
-Repository = "https://github.com/hwkimmd/HARVEST"
 
 dependencies = [
   "numpy>=1.26",
@@ -21,6 +19,9 @@ dependencies = [
   "torch>=2.4",
   "torchvision>=0.19",
 ]
+
+[project.urls]
+Repository = "https://github.com/hwkimmd/HARVEST"
 
 [project.optional-dependencies]
 test = ["pytest>=8.0"]
