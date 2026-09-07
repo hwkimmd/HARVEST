@@ -110,7 +110,11 @@ Each output directory contains the resulting `checkpoint.pth` and run metadata. 
 
 ## 5. RARE25 split and five-fold fine-tuning
 
-The labeled input manifest must contain the fields shown in `examples/manifests/labeled.example.csv`. Create the fixed internal-test/development assignment and five development folds:
+The labeled input manifest `private_data/rare_labeled.csv` must contain the fields shown in `examples/manifests/labeled.example.csv`. RARE25-specific directory and annotation parsing is kept outside the training pipeline; users should locally map their authorized copy of RARE25 to this standardized manifest format.
+
+`relative_path` is interpreted relative to the directory passed via `--data-root`. For example, `relative_path=center_1/negative/example_0001.png` with `--data-root /path/to/rare` refers to `/path/to/rare/center_1/negative/example_0001.png`.
+
+Create the fixed internal-test/development assignment and five development folds:
 
 ```bash
 python scripts/prepare_splits.py \

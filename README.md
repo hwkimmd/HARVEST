@@ -110,6 +110,10 @@ CUDA_VISIBLE_DEVICES=0 python scripts/train_domain_ssl.py \
 
 ### 7. Prepare the RARE25 labeled split
 
+RARE25 is handled through a local labeled manifest rather than a dataset-specific parser, so the training pipeline does not depend on the raw dataset layout or annotation format. Create `private_data/rare_labeled.csv` following `examples/manifests/labeled.example.csv`; see `docs/REPRODUCIBILITY.md` for details.
+
+For example, `relative_path=center_1/negative/example_0001.png` with `--data-root /path/to/rare` refers to `/path/to/rare/center_1/negative/example_0001.png`.
+
 ```bash
 python scripts/prepare_splits.py \
   --manifest private_data/rare_labeled.csv \
